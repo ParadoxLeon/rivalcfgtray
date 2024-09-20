@@ -7,7 +7,7 @@ from PyQt6.QtCore import QTimer
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Gets the current script's directory
-ICON_PATH = os.path.join(BASE_DIR, "rivalcfgbatt", "batticons")
+ICON_PATH = os.path.join(BASE_DIR, "batticons")
 
 def get_battery_status():
     """Run the rivalcfg command and get battery status."""
