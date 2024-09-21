@@ -14,4 +14,4 @@ Comment=Run Rivalcfg battery tray application
 ```
 
 ## Required
-[rivalcfg](https://github.com/flozz/rivalcfg), python and python-pyqt6
+[rivalcfg](https://github.com/flozz/rivalcfg), python3 and python-pyqt6
