@@ -20,15 +20,20 @@ def get_battery_status():
 
 def parse_battery_level(status):
     """Extract battery percentage and charging state from the status."""
+    if "Error" in status or not status:
+        return None, False  # Return None if there's an error
     match = re.search(r'(Charging|Discharging)\s+\[.*\]\s+(\d+)\s*%', status)
     if match:
         charging_state = match.group(1) == "Charging"
         battery_level = int(match.group(2))
         return battery_level, charging_state
-    return 0, False  # Default if no match found
+    return None, False  # Return None if no match found
 
 def get_icon_for_battery_level(battery_level):
     """Return the appropriate icon based on battery level."""
+    if battery_level is None:
+        # If no battery level is found or an error occurred, show unavailable icon
+        return QIcon(os.path.join(ICON_PATH, "battery_unavailable.png"))
     if battery_level >= 100:
         return QIcon(os.path.join(ICON_PATH, "battery_100.png"))
     elif battery_level >= 75:
@@ -43,18 +48,22 @@ def get_icon_for_battery_level(battery_level):
 def update_battery_status(tray_icon):
     """Update the tray icon based on the battery status."""
     status = get_battery_status()
-    print("Battery Status:", status)  # print the raw status
+    print("Battery Status:", status)  # Debug line to print the raw status
 
     battery_level, charging = parse_battery_level(status)
-    print(f"Parsed Level: {battery_level}%, Charging: {'Yes' if charging else 'No'}")  # Debug parsed values
-
-    # Get the appropriate icon based on battery level
-    icon = get_icon_for_battery_level(battery_level)
-    tray_icon.setIcon(icon)
-
-    # Set tooltip with the mouse icon and battery level
-    tooltip_text = f"🖱️ {'Charging' if charging else 'Discharging'}: {battery_level}%"
-    tray_icon.setToolTip(tooltip_text)
+    
+    if battery_level is None:
+        # show the "unavailable" state
+        print("Unable to get battery level. Is the mouse turned on?")
+        icon = get_icon_for_battery_level(None)
+        tray_icon.setIcon(icon)
+        tray_icon.setToolTip("🖱️ Unable to get the battery level. Is the mouse turned on?")
+    else:
+        print(f"Parsed Level: {battery_level}%, Charging: {'Yes' if charging else 'No'}")
+        icon = get_icon_for_battery_level(battery_level)
+        tray_icon.setIcon(icon)
+        tooltip_text = f"🖱️ {'Charging' if charging else 'Discharging'}: {battery_level}%"
+        tray_icon.setToolTip(tooltip_text)
 
 def create_tray_icon():
     """Create the system tray icon with a menu."""
