@@ -1,5 +1,9 @@
 git clone or download the repo and add it to you're autostart
 
+
+## Required
+[rivalcfg](https://github.com/flozz/rivalcfg), python3 and python-pyqt6
+
 ### Example `rivalcfgtray.desktop`
 ```
 [Desktop Entry]
@@ -12,6 +16,3 @@ Name=Rivalcfg Tray
 Comment=Run Rivalcfg battery tray application
 
 ```
-
-## Required
-[rivalcfg](https://github.com/flozz/rivalcfg), python3 and python-pyqt6
