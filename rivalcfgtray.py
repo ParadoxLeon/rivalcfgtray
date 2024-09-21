@@ -75,7 +75,7 @@ def create_tray_icon():
 
     timer = QTimer()
     timer.timeout.connect(lambda: update_battery_status(tray_icon))
-    timer.start(600000)  # 10 minutes
+    timer.start(10000)  # 10 seconds
 
     sys.exit(app.exec())
 
