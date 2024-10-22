@@ -36,13 +36,13 @@ def get_icon_for_battery_level(battery_level):
         return QIcon(os.path.join(ICON_PATH, "battery_unavailable.png"))
     
     # Adjusted ranges to better reflect actual battery percentage
-    if battery_level >= 90:
+    if battery_level >= 85:
         return QIcon(os.path.join(ICON_PATH, "battery_100.png"))
     elif battery_level >= 50:
         return QIcon(os.path.join(ICON_PATH, "battery_75.png"))
-    elif battery_level >= 45:
+    elif battery_level >= 35:
         return QIcon(os.path.join(ICON_PATH, "battery_50.png"))
-    elif battery_level >= 25:
+    elif battery_level >= 20:
         return QIcon(os.path.join(ICON_PATH, "battery_25.png"))
     else:
         return QIcon(os.path.join(ICON_PATH, "battery_empty.png"))
